@@ -10,6 +10,21 @@
 pip install hymlx
 ```
 
+## Quick Start (uvx one-liners)
+
+Run the deterministic color world or transform demos without installing:
+
+```bash
+# Run color world
+uvx --from git+https://github.com/bmorphism/hymlx.git hymlx world
+
+# Run JAX transform demo
+uvx --from git+https://github.com/bmorphism/hymlx.git hymlx transforms
+
+# Generate colors
+uvx --from git+https://github.com/bmorphism/hymlx.git hymlx color 1069 5
+```
+
 ## Core Features
 
 ### 1. JAX Transforms for MLX
