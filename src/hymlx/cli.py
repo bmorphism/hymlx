@@ -69,11 +69,11 @@ def world(seed: int = 1069):
     print("\n✅ World complete!")
 
 
-def demo_transforms():
-    """Demo JAX-style transforms."""
-    from hymlx import grad, jit, vmap, scan, force
+def verify_transforms():
+    """Verify JAX-style transforms."""
+    from hymlx import grad, jit, vmap, scan, fori_loop, force
     
-    print("🔧 HyMLX Transforms Demo\n")
+    print("🔧 HyMLX Transforms Verification\n")
     
     # grad
     print("1. grad - Automatic Differentiation:")
@@ -123,7 +123,7 @@ def demo_transforms():
     force(running)
     print(f"   Running sum of {list(xs)}: {list(running)}")
     
-    print("\n✅ Transforms demo complete!")
+    print("\n✅ Transforms verification complete!")
 
 
 def main():
@@ -134,7 +134,7 @@ def main():
 Examples:
   hymlx world              Run world (deterministic colors)
   hymlx world --seed 42    Use custom seed
-  hymlx transforms         Demo grad/jit/vmap/scan
+  hymlx transforms         Verify grad/jit/vmap/scan
   hymlx color 1069 5       Generate 5 colors from seed 1069
         """
     )
@@ -146,7 +146,7 @@ Examples:
     world_parser.add_argument("--seed", type=int, default=1069, help="Base seed")
     
     # transforms command
-    subparsers.add_parser("transforms", help="Demo JAX-style transforms")
+    subparsers.add_parser("transforms", help="Verify JAX-style transforms")
     
     # color command
     color_parser = subparsers.add_parser("color", help="Generate colors")
@@ -158,7 +158,7 @@ Examples:
     if args.command == "world":
         world(args.seed)
     elif args.command == "transforms":
-        demo_transforms()
+        verify_transforms()
     elif args.command == "color":
         chain = derive_chain(args.seed, args.count)
         mx.eval(chain)

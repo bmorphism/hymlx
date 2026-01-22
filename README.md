@@ -12,13 +12,13 @@ pip install hymlx
 
 ## Quick Start (uvx one-liners)
 
-Run the deterministic color world or transform demos without installing:
+Run the deterministic color world or transform verification without installing:
 
 ```bash
 # Run color world
 uvx --from git+https://github.com/bmorphism/hymlx.git hymlx world
 
-# Run JAX transform demo
+# Run JAX transform verification
 uvx --from git+https://github.com/bmorphism/hymlx.git hymlx transforms
 
 # Generate colors
