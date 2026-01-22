@@ -1,0 +1,199 @@
+[project]
+name = "hymlx"
+version = "0.2.0"
+description = "JAX-Style Transformations for MLX with Hy S-expression DSL - functional ML on Apple Silicon"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "barton", email = "freemorphism@gmail.com" }
+]
+maintainers = [
+    { name = "barton", email = "freemorphism@gmail.com" }
+]
+keywords = [
+    "mlx",
+    "jax", 
+    "apple-silicon",
+    "machine-learning",
+    "functional",
+    "hy",
+    "lisp",
+    "s-expressions",
+    "graph-neural-networks",
+    "gnn",
+    "splitmix64",
+    "deterministic-colors",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: GPU",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Lisp",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "mlx>=0.20.0",
+    "hy>=1.0.0",
+    "hyrule>=0.7.0",
+]
+
+[project.optional-dependencies]
+# Graph neural networks on Apple Silicon
+graphs = [
+    "mlx-graphs>=0.0.8",
+]
+# JAX ecosystem integration  
+jax = [
+    "jax>=0.4.20",
+    "jaxlib>=0.4.20",
+    "flax>=0.10.0",
+    "optax>=0.2.0",
+]
+# JraphX GNN library (requires JAX)
+jraphx = [
+    "jraphx>=0.0.4",
+    "jax>=0.4.20",
+    "flax>=0.10.0",
+]
+# RLax reinforcement learning
+rl = [
+    "rlax>=0.1.6",
+    "jax>=0.4.20",
+]
+# Monte Carlo Tree Search
+mcts = [
+    "mctx>=0.0.5",
+    "jax>=0.4.20",
+]
+# Full JAX stack
+full-jax = [
+    "jax>=0.4.20",
+    "jaxlib>=0.4.20",
+    "flax>=0.10.0",
+    "optax>=0.2.0",
+    "rlax>=0.1.6",
+    "mctx>=0.0.5",
+    "jraphx>=0.0.4",
+]
+# Development
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10",
+    "build>=1.0",
+    "twine>=5.0",
+]
+# Testing only
+test = [
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+]
+# Documentation
+docs = [
+    "sphinx>=7.0",
+    "myst-parser>=2.0",
+    "sphinx-rtd-theme>=2.0",
+]
+# All optional dependencies (note: graphs and jax have numpy conflicts, install separately)
+all-mlx = [
+    "mlx-graphs>=0.0.8",
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+]
+all-jax = [
+    "jax>=0.4.20",
+    "jaxlib>=0.4.20",
+    "flax>=0.10.0",
+    "optax>=0.2.0",
+    "rlax>=0.1.6",
+    "mctx>=0.0.5",
+    "jraphx>=0.0.4",
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+]
+
+[project.scripts]
+hymlx = "hymlx.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Soft-Machine-io/soft-machine"
+Repository = "https://github.com/Soft-Machine-io/soft-machine"
+Documentation = "https://github.com/Soft-Machine-io/soft-machine/tree/main/hymlx"
+Issues = "https://github.com/Soft-Machine-io/soft-machine/issues"
+Changelog = "https://github.com/Soft-Machine-io/soft-machine/blob/main/hymlx/CHANGELOG.md"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = [
+    "src/hymlx/**/*.py",
+    "src/hymlx/**/*.hy",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hymlx"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/hymlx/**/*.py",
+    "src/hymlx/**/*.hy",
+    "tests/**/*.py",
+    "tests/**/*.hy",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]  # Line too long (handled by formatter)
+
+[tool.ruff.lint.isort]
+known-first-party = ["hymlx"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["src/hymlx"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
